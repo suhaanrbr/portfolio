@@ -70,10 +70,11 @@
       "githubRepo": "",
       "shots": [
         "shots/carrom-crest-cover.webp",
-        "shots/carrom-crest-aiming.webp",
-        "shots/carrom-crest-menu.webp",
-        "shots/carrom-crest-doubles.webp",
-        "shots/carrom-crest-challenges.webp"
+        "shots/carrom-crest-ablaze.webp",
+        "shots/carrom-crest-final-table.webp",
+        "shots/carrom-crest-3d-table.webp",
+        "shots/carrom-crest-strike.webp",
+        "shots/carrom-crest-new-tables.webp"
       ],
       "stack": [
         "Godot",

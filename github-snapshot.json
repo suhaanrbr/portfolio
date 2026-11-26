@@ -6,7 +6,7 @@
   "total": 2,
   "own": 2,
   "marketplace": 0,
-  "repositoryCount": 4,
+  "repositoryCount": 3,
   "scope": "Public owned non-fork repositories",
   "repositories": [
    {
@@ -21,8 +21,8 @@
   "from": "2026-01-01",
   "to": "2026-11-26",
   "year": 2026,
-  "total": 148,
-  "source": "GitHub public contribution calendar",
+  "total": 150,
+  "source": "GitHub GraphQL contributionCalendar",
   "days": [
    {
     "date": "2026-01-01",
@@ -1671,13 +1671,13 @@
    },
    {
     "date": "2026-11-26",
-    "count": 6,
+    "count": 8,
     "level": 2
    }
   ]
  },
  "sources": [
-  "GitHub public REST API + public contribution calendar"
+  "GitHub REST + GraphQL via gh"
  ],
- "fetchedAt": "2026-11-26T16:19:33.569Z"
+ "fetchedAt": "2026-11-26T16:46:05.446Z"
 }

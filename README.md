@@ -1,91 +1,40 @@
-# dev-portfolio-template
+# Waqar Younis · portfolio
 
-A Neovim-inspired developer portfolio template with an animated code-wall intro, interactive terminal-style editor, 8 built-in color themes, contribution calendar, and keyboard-first navigation (`j`/`k`, `:theme`, `enter`).
+My developer portfolio, live at **[waqaryounis.vercel.app](https://waqaryounis.vercel.app)**.
 
-Zero build step required — pure HTML, CSS, and ES modules.
+![The portfolio's editor view, showing Carrom Crest](docs/editor.webp)
 
-<p align="center">
-  <img src="./assets/demo.gif" alt="Portfolio Demo Reel" width="340" />
-</p>
+I'm a BCA student at Manipal University Jaipur working toward a career in AI/ML, and the founder of Suwexa Gaming. The site shows what I've shipped so far:
 
-<p align="center">
-  <a href="./assets/demo.mp4">Watch full HD video (<code>assets/demo.mp4</code>)</a>
-</p>
+- **[Carrom Crest](https://play.google.com/store/apps/details?id=dev.carromcrest.game)**: a carrom game for Android, on Google Play
+- **[Humanora](https://humanora-beryl.vercel.app)**: an AI writing and study workspace built on Google Gemini
+- **[Suwexa Gaming](https://suwexa.vercel.app)**: my studio's website, with a carrom table you can play in the browser
 
-| Intro & Code Wall | Interactive Editor |
-| :---: | :---: |
-| <img src="./assets/preview-1.png" alt="Intro & Code Wall" width="420" /> | <img src="./assets/preview-2.png" alt="Interactive Editor" width="420" /> |
-| **Projects & Stack** | **Themes & Terminal** |
-| <img src="./assets/preview-3.png" alt="Projects & Stack" width="420" /> | <img src="./assets/preview-4.png" alt="Themes & Terminal" width="420" /> |
+## How it works
 
----
+Plain HTML, CSS and JavaScript, no framework and no build step, styled like the Neovim editor.
 
-## Quick Start (With One AI Prompt)
+- All content lives in [`portfolio.config.json`](portfolio.config.json).
+- [`scripts/build-data.mjs`](scripts/build-data.mjs) turns it into the JSON files the site reads.
+- A [weekly GitHub Action](.github/workflows/refresh-github-stats.yml) refreshes the contribution calendar, languages and code wall from the GitHub API.
+- Hosted on Vercel, which redeploys on every push to `main`. Security headers are set in [`vercel.json`](vercel.json).
 
-1. Click **"Use this template"** on GitHub (or clone this repo).
-2. Open the folder in your AI coding assistant (Cursor, Claude Code, Antigravity, Windsurf, Copilot, etc.).
-3. Copy the prompt from **[`AI_PROMPT.md`](./AI_PROMPT.md)**, paste your resume / bio / links / projects at the bottom, and send it.
-4. Preview locally:
-   ```sh
-   python3 serve.py
-   ```
-   Open `http://localhost:8767/` (intro) and `http://localhost:8767/site/` (editor).
+![The intro: a wall of code with a keyboard that types it](docs/intro.webp)
 
----
-
-## Manual Setup
-
-All personal information, links, work history, projects, and talks live in a single file:
-
-- **`portfolio.config.json`** — edit your `identity`, `about`, `links`, `work`, `projects`, and `talks`.
-
-Then regenerate the site files:
+## Run it locally
 
 ```sh
-# Offline mode (updates HTML, JS, SVG, content.json, themes using your config)
-node scripts/build-data.mjs
-
-# Online mode (also fetches your real GitHub repos, languages, contribution calendar & code wall via `gh` CLI)
-node scripts/build-data.mjs --fetch-github
+python serve.py                              # http://localhost:8767
+node scripts/build-data.mjs                  # after editing portfolio.config.json
+node scripts/build-data.mjs --fetch-github   # also refresh GitHub data (needs the gh CLI, signed in)
 ```
 
-> **Note:** Online mode requires the [GitHub CLI (`gh`)](https://cli.github.com/) to be installed and authenticated (`gh auth login`).
+`serve.py` sends the same security headers as production, so a policy problem shows up locally first.
 
----
+## Credits
 
-## Project Structure
+Built on [dev-portfolio-template](https://github.com/pavanjoshi914/dev-portfolio-template) by Pavan Joshi (MIT licence). I personalised it with AI-assisted development (Claude Code) and added Windows support in the build script, playable video trailers for projects, social preview cards, security headers and the weekly stats refresh.
 
-| Path | Purpose |
-|---|---|
-| `portfolio.config.json` | **Single source of truth** for all your personal info, projects, work, and talks |
-| `AI_PROMPT.md` | One-prompt template for AI assistants to personalize the entire site |
-| `scripts/build-data.mjs` | Syncs `portfolio.config.json` into HTML/JS/JSON (with optional `--fetch-github`) |
-| `index.html`, `glimpse.js`, `glimpse.css` | Landing intro with animated code wall and `:theme` switcher |
-| `site/` | Interactive Neovim/terminal-style portfolio (`/site/`) |
-| `site/shots/` | Project screenshots (supports `.png`, `.jpg`, `.webp`, `.svg`) |
-| `site/photos/` | Optional conference/talk photo galleries |
-| `serve.py` | Local dev server with `Cache-Control: no-store` (`python3 serve.py [port]`) |
-| `scripts/build-face.py` | Optional script to generate the looping face-tracking intro layer |
+## Licence
 
----
-
-## Adding Your Own Assets
-
-- **Project Screenshots**: Drop images into `site/shots/` and reference them as `"shots/my-app.png"` in `portfolio.config.json`.
-- **Project Videos**: Add a film slide with a play button by using an object instead of a path in `shots`: `{ "video": "shots/trailer.mp4", "poster": "shots/trailer.webp", "duration": 61, "label": "trailer" }` (`duration` is in seconds; keep videos small, e.g. 720p).
-- **Talk Photos**: Drop photos into `site/photos/<event>/` and reference them in `talks[].photos` in `portfolio.config.json`.
-- **Custom Logo**: Replace the SVG `<path>` in `favicon.svg`, `index.html`, `site/index.html`, and `MARK` in `site/wheel.js`.
-- **Optional Face Intro Layer**: See `scripts/build-face.py` if you want to add a green-screened portrait loop to the intro. Without `face.mp4` / `face.webm` / `face-track.json`, the intro skips the face layer automatically.
-
----
-
-## Deploy
-
-This is a static site. Deploy the root directory directly to **GitHub Pages**, **Vercel**, **Netlify**, or **Cloudflare Pages** with no build command needed.
-
----
-
-## License
-
-This project is licensed under the [MIT License](./LICENSE) — you are free to use, modify, and publish it for your own personal or commercial portfolio as long as the copyright and license notice are included.
-
+MIT. See [LICENSE](LICENSE), which keeps the original template's copyright notice.

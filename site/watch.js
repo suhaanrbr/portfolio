@@ -570,7 +570,7 @@ export function createWatch({ layer, deskHost, eyeHost, buffer, status, onState,
     const shown = now - ghost.at < 1600 ? ghost : pointer;
     if (desk.mouse.value > 0.4 && shown.x >= 0) {
       g.font = `8px "Plex Mono", monospace`;
-      const lines = [`['mouse:u'] ${(shown.x / width).toFixed(7)}`, (shown.y / height).toFixed(7)];
+      const lines = [`mouse x=${(shown.x / width).toFixed(3)}`, `y=${(shown.y / height).toFixed(3)}`];
       g.fillStyle = `rgba(${colors.ink}, ${(0.7 * alpha * desk.mouse.value).toFixed(3)})`;
       lines.forEach((line, k) => g.fillText(line, Math.round(mx + w / 2 + 12), Math.round(my - h / 2 + 6 + k * 9)));
     }
@@ -595,14 +595,14 @@ export function createWatch({ layer, deskHost, eyeHost, buffer, status, onState,
     let mouseAt = null;
     if (kb.mouse) mouseAt = drawMouse(vis, now);
     const left = hands[0];
-    drawHandShape(left.points, vis, now, left.tips, `['hand0:u'] ${(left.points[0][0] / width).toFixed(7)}`, 0);
+    drawHandShape(left.points, vis, now, left.tips, `hand0 x=${(left.points[0][0] / width).toFixed(3)}`, 0);
     const right = hands[1];
     let points = right.points;
     if (mouseAt && desk.mouse.value > 0.001) {
       const pose = mousePose(mouseAt[0], mouseAt[1]);
       points = points.map((point, k) => lerp(point, pose[k], desk.mouse.value));
     }
-    drawHandShape(points, vis, now, desk.mouse.value > 0.5 ? null : right.tips, `['hand1:u'] ${(points[0][0] / width).toFixed(7)}`, 1);
+    drawHandShape(points, vis, now, desk.mouse.value > 0.5 ? null : right.tips, `hand1 x=${(points[0][0] / width).toFixed(3)}`, 1);
     return moving || active;
   }
 
@@ -715,7 +715,7 @@ export function createWatch({ layer, deskHost, eyeHost, buffer, status, onState,
     g.strokeRect(Math.round(p.x - s) + 0.5, Math.round(p.y - s) + 0.5, Math.round(2 * s), Math.round(2 * s));
     const lost = worm ? worm.infection(now) : 0;
     const area = ((Math.PI * p.rp * p.rp) / (box.w * box.h)).toFixed(10);
-    const label = lost > 0.6 ? ["['pupil:u'] NaN", "NaN", area, "None"] : [`['pupil:u'] ${((p.x - (box.cx - box.w / 2)) / box.w).toFixed(7)}`, ((p.y - (box.cy - box.h / 2)) / box.h).toFixed(7), area, "None"];
+    const label = lost > 0.6 ? ["pupil", "lost"] : ["pupil", `x=${((p.x - (box.cx - box.w / 2)) / box.w).toFixed(3)}`, `y=${((p.y - (box.cy - box.h / 2)) / box.h).toFixed(3)}`];
     const labelWidth = Math.max(...label.map((line) => g.measureText(line).width));
     const lx = clamp(box.cx - labelWidth / 2, 8, width - labelWidth - 8);
     const ly = box.cy + box.h / 2 + 10;
@@ -844,11 +844,11 @@ export function createWatch({ layer, deskHost, eyeHost, buffer, status, onState,
     if (!onState) return;
     const crawler = worm ? worm.describe(now) : { text: "gone", hot: false, label: null };
     const lost = worm ? worm.infection(now) : 0;
-    const sight = eye.state === "closed" ? "closed" : worm?.inner() || lost > 0.6 ? "NaN" : now - focus.at < FOCUS_MS ? "focused" : "tracking";
+    const sight = eye.state === "closed" ? "closed" : worm?.inner() || lost > 0.6 ? "lost" : now - focus.at < FOCUS_MS ? "focused" : "tracking";
     const next = [crawler.text, crawler.hot, crawler.label, sight, repairing].join("|");
     if (next === stateKey) return;
     stateKey = next;
-    onState({ worm: crawler, eye: { text: sight, hot: sight === "NaN" }, ghost: repairing ? "repairing" : "idle" });
+    onState({ worm: crawler, eye: { text: sight, hot: sight === "lost" }, ghost: repairing ? "repairing" : "idle" });
   }
 
   const onMove = (event) => {

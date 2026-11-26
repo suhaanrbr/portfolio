@@ -49,6 +49,8 @@ function syncIdentity() {
   const tagline = esc(ID.tagline);
   const ghUrl = `https://github.com/${encodeURIComponent(OWNER)}`;
   const barTitle = esc(ID.barTitle || ID.name.toUpperCase());
+  const name = esc(ID.name);
+  const sections = CONFIG.talks?.length ? "projects, work, talks and themes" : "projects, work and themes";
 
   // favicon.svg
   let fav = read("favicon.svg");
@@ -59,10 +61,10 @@ function syncIdentity() {
   let idx = read("index.html");
   idx = idx
     .replace(/<title>[^<]*<\/title>/, `<title>${domain}</title>`)
-    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${domain} — a quiet wall of code. ${tagline}">`)
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${name} · ${tagline}">`)
     .replace(/(<a class="brand"[^>]*>.*?<span>)[^<]*(<\/span><\/a>)/s, `$1${domain}$2`)
     .replace(/<a href="https:\/\/github\.com\/[^"]*" rel="me">github<\/a>/, `<a href="${ghUrl}" rel="me">github</a>`)
-    .replace(/<h1 class="sr-only">[^<]*<\/h1>/, `<h1 class="sr-only">${domain} — ${tagline}</h1>`)
+    .replace(/<h1 class="sr-only">[^<]*<\/h1>/, `<h1 class="sr-only">${name}: ${tagline}</h1>`)
     .replace(/<p class="note" aria-hidden="true">\/\/ [^<]*<\/p>/, `<p class="note" aria-hidden="true">// ${tagline}</p>`);
   write("index.html", idx);
 
@@ -70,10 +72,10 @@ function syncIdentity() {
   let sIdx = read("site/index.html");
   sIdx = sIdx
     .replace(/<title>[^<]*<\/title>/, `<title>${domain}</title>`)
-    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${domain} — work, projects, talks and themes, opened in an editor.">`)
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${name}: ${sections}, opened in an editor.">`)
     .replace(/(<a class="brand"[^>]*>.*?<span>)[^<]*(<\/span><\/a>)/s, `$1${domain}$2`)
     .replace(/<a href="https:\/\/github\.com\/[^"]*" rel="me">github<\/a>/, `<a href="${ghUrl}" rel="me">github</a>`)
-    .replace(/<h1 class="sr-only">[^<]*<\/h1>/, `<h1 class="sr-only">${domain} — work, projects, talks and themes.</h1>`)
+    .replace(/<h1 class="sr-only">[^<]*<\/h1>/, `<h1 class="sr-only">${name}: ${sections}.</h1>`)
     .replace(/<span class="bar-title">[^<]*<\/span>/, `<span class="bar-title">${barTitle}</span>`);
   write("site/index.html", sIdx);
 
@@ -252,7 +254,9 @@ async function icon(name) {
 }
 
 if (FETCH_GH) {
-  const owned = gh("--paginate", `users/${OWNER}/repos?per_page=100&type=owner`).filter((r) => !r.fork);
+  // statsExclude: repos whose code isn't yours to count (e.g. this portfolio, built on a template).
+  const exclude = new Set((CONFIG.statsExclude || []).map((r) => r.toLowerCase()));
+  const owned = gh("--paginate", `users/${OWNER}/repos?per_page=100&type=owner`).filter((r) => !r.fork && !exclude.has(r.full_name.toLowerCase()));
   const langBytes = new Map();
   for (const r of owned.slice(0, 80)) {
     const l = ghTry(`repos/${r.full_name}/languages`) || {};
@@ -304,6 +308,24 @@ if (FETCH_GH) {
   write("site/months.json", { from: snapshot.contributions.from, to: TODAY, fetchedAt: iso, scope: "GitHub-attributed public commit contributions per repository and month", months });
 
   const LANG = { ts: "js", tsx: "js", js: "js", jsx: "js", mjs: "js", rs: "rust", go: "c", cs: "c", kt: "c", java: "c", rb: "ruby", py: "python" };
+  // The wall shows code, not prose: drop full-line comments and block comments, collapse blank runs, keep 80 lines.
+  const wallLines = (text, lang) => {
+    const hash = lang === "python" || lang === "ruby";
+    let inBlock = false;
+    const out = [];
+    for (const raw of text.replace(/\t/g, "  ").split("\n")) {
+      const line = raw.replace(/\s+$/, "");
+      const t = line.trim();
+      if (!hash) {
+        if (inBlock) { if (t.includes("*/")) inBlock = false; continue; }
+        if (t.startsWith("/*")) { if (!t.includes("*/")) inBlock = true; continue; }
+        if (t.startsWith("//")) continue;
+      } else if (t.startsWith("#") && !t.startsWith("#!")) continue;
+      if (!t && (!out.length || !out.at(-1).trim())) continue;
+      out.push(line);
+    }
+    return out.slice(0, 80);
+  };
   const wallRepos = CONFIG.wallRepos?.length ? CONFIG.wallRepos : owned.slice(0, 5).map((r) => [r.full_name, 2]);
   const files = [];
   for (const [full, n] of wallRepos) {
@@ -313,7 +335,8 @@ if (FETCH_GH) {
     const pick = tree.filter((f) => f.type === "blob" && LANG[f.path.split(".").pop()] && f.size > 800 && f.size < 8000 && !/test|spec|mock|node_modules|dist|vendor|\.min\.|generated/i.test(f.path)).slice(0, n);
     for (const f of pick) {
       const text = ghRaw(`repos/${full}/git/blobs/${f.sha}`);
-      files.push({ repo: full.split("/")[1], path: f.path, sha: f.sha, lang: LANG[f.path.split(".").pop()], firstLine: 1, url: `https://github.com/${full}/blob/${f.sha}/${f.path}`, lines: text.replace(/\t/g, "  ").split("\n").slice(0, 80).map((l) => l.replace(/\s+$/, "")) });
+      const lang = LANG[f.path.split(".").pop()];
+      files.push({ repo: full.split("/")[1], path: f.path, sha: f.sha, lang, firstLine: 1, url: `https://github.com/${full}/blob/${f.sha}/${f.path}`, lines: wallLines(text, lang) });
     }
   }
   const wallThemes = palettes.map((t) => ({ name: slug(t.name), light: t.light, source: "built-in palette", accent: t.accent, bg: t.bg, fg: t.fg, selection: t.accent, selectionText: t.bg, kinds: t.kinds, cursorline: t.cursorline }));

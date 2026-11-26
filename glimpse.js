@@ -37,6 +37,11 @@ const touchMode = window.matchMedia("(hover: none) and (pointer: coarse)").match
 // Bump when face.webm / face.mp4 / face-track.json / wall.json change. These files are fetched by script, and browsers can keep old copies of
 // script-initiated fetches even through a hard refresh; a new ?v= makes the old cache entries unreachable.
 const ASSET_V = "20261123-orig-face";
+// Optional features that need files this site doesn't have. Off = no requests, so no 404s in the console.
+// FACE_LAYER: the green-screened portrait loop (face.webm / face.mp4 / face-track.json, see scripts/build-face.py).
+// SEEN_API: a visit counter that POSTs to /api/seen (needs a serverless function).
+const FACE_LAYER = false;
+const SEEN_API = false;
 const FACE_FONT_PX = 5.5;
 const EM_TOP = 1025 / 1300;
 const GLYPH_Y = 1 + FONT_PX * EM_TOP;
@@ -2030,7 +2035,7 @@ function makeTracking(w, h) {
         const u = members.reduce((sum, p) => sum + p.u, 0) / members.length;
         const v = members.reduce((sum, p) => sum + p.v, 0) / members.length;
         const area = ((x1 - x0) * (y1 - y0)) / (w * h);
-        const label = [`['blob${group}:u'] ${u.toFixed(7)}`, v.toFixed(7), area.toFixed(10), "None"];
+        const label = [`blob${group}`, `x=${u.toFixed(3)}`, `y=${v.toFixed(3)}`];
         const width = Math.max(...label.map((line) => g.measureText(line).width));
         const left = (x0 + x1) / 2 < center;
         let lx = left ? x0 - 8 - width : x1 + 8;
@@ -2220,7 +2225,7 @@ function drawTrack(g, t) {
   g.textBaseline = "alphabetic";
   g.strokeStyle = `rgba(${INK}, ${(0.7 * alpha).toFixed(3)})`;
   g.strokeRect(Math.round(p.x - s) + 0.5, Math.round(p.y - s) + 0.5, Math.round(2 * s), Math.round(2 * s));
-  const label = [`['pupil:u'] ${((p.x - (t.cx - t.w / 2)) / t.w).toFixed(7)}`, ((p.y - (t.cy - t.h / 2)) / t.h).toFixed(7), ((Math.PI * p.rp * p.rp) / (t.w * t.h)).toFixed(10), "None"];
+  const label = ["pupil", `x=${((p.x - (t.cx - t.w / 2)) / t.w).toFixed(3)}`, `y=${((p.y - (t.cy - t.h / 2)) / t.h).toFixed(3)}`];
   const width = Math.max(...label.map((line) => g.measureText(line).width));
   const height = label.length * 9;
   const fits = ([lx, ly]) => lx >= 8 && lx + width <= wall.width - 8 && ly >= 8 && ly + height <= wall.height - 8;
@@ -2522,7 +2527,7 @@ function keyboardExtent() {
   const g = wall.context;
   g.save();
   g.font = `8px "Plex Mono", monospace`;
-  const label = g.measureText(keyboard.scale < 1 ? "['hand0:u']" : "['hand0:u'] 0.0000000").width;
+  const label = g.measureText(keyboard.scale < 1 ? "hand0" : "hand0 x=0.000").width;
   g.restore();
   for (const hand of hands) {
     for (const code of [null, ...keys.keys()]) {
@@ -2693,7 +2698,7 @@ function drawHands(g, now) {
     const frame = handFrame(points);
     g.strokeStyle = `rgba(${INK}, ${(0.28 * vis).toFixed(3)})`;
     g.strokeRect(Math.round(frame[0]) + 0.5, Math.round(frame[1]) + 0.5, Math.round(frame[2] - frame[0]), Math.round(frame[3] - frame[1]));
-    const label = keyboard.scale < 1 ? `['hand${hand.side}:u']` : `['hand${hand.side}:u'] ${(points[0][0] / wall.width).toFixed(7)}`;
+    const label = keyboard.scale < 1 ? `hand${hand.side}` : `hand${hand.side} x=${(points[0][0] / wall.width).toFixed(3)}`;
     const [lx, ly] = labelAt(hand, g.measureText(label).width, frame);
     g.fillStyle = `rgba(${INK}, ${(0.7 * vis).toFixed(3)})`;
     g.fillText(label, Math.round(lx), Math.round(ly) + 8 * EM_TOP);
@@ -4186,6 +4191,7 @@ onWidthResize(() => {
 });
 
 function markSeen() {
+  if (!SEEN_API) return;
   let timer = 0;
   const arm = () => {
     clearTimeout(timer);
@@ -4201,6 +4207,7 @@ function markSeen() {
 }
 
 function loadFace() {
+  if (!FACE_LAYER) return Promise.resolve(null);
   return new Promise((resolve) => {
     const video = document.createElement("video");
     video.muted = true;

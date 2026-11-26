@@ -1,7 +1,7 @@
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const WHEEL = { radius: 520, step: 0.155, reach: 0.82, box: [150, 94], small: 0.64, tilt: 0.55, rim: 96, pad: 150, drag: 64, response: 0.34 };
 const INK = { seed: 4014, peaks: 0.62, reach: 48, single: 26, form: 2800, tail: 1.12, sway: 1400, swing: 0.3, reachOut: 1.6, cycles: 2.5 };
-const MARK = ["M8 16L36 40L8 64L18 74L54 40L18 6Z", "M52 62H84V74H52Z"];
+const MARK = ["M2 8H13L19 47L26 18H34L41 47L47 8H58L46 74H37L30 45L23 74H14Z", "M62 63H88V74H62Z"];
 const TAU = Math.PI * 2;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const smooth = (v) => {

@@ -1063,12 +1063,12 @@ export function createWorm({ buffer, status, colors, pointer, touchedAt, seed, f
       g.fillStyle = `rgba(${colors.worm}, ${(0.9 * alpha).toFixed(3)})`;
       if (target.kind === "eye" && !narrow.matches) {
         g.font = `8px "Plex Mono", monospace`;
-        g.fillText(`['eye:u'] ${(tr.cx / width).toFixed(7)}`, Math.round(tr.cx - tr.w / 2 - 3), Math.round(tr.cy - tr.h / 2 - 7));
+        g.fillText(`eye x=${(tr.cx / width).toFixed(3)}`, Math.round(tr.cx - tr.w / 2 - 3), Math.round(tr.cy - tr.h / 2 - 7));
       }
     }
     if (from && head.f === "s" && (mode === "lurk" || mode === "still") && !narrow.matches) {
       g.font = `8px "Plex Mono", monospace`;
-      const lines = [`['worm:u'] ${(from.x / width).toFixed(7)}`, `len ${data.length}`];
+      const lines = [`worm x=${(from.x / width).toFixed(3)}`, `len ${data.length}`];
       const wide = Math.max(...lines.map((line) => g.measureText(line).width));
       const x = from.x + 13 + wide < width - 4 ? from.x + 13 : from.x - 13 - wide;
       g.fillStyle = `rgba(${colors.ink}, 0.6)`;

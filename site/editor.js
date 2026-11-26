@@ -158,15 +158,18 @@ const items = entries.filter((entry) => !entry.parent).map((entry) =>
 );
 
 const bar = createBar(barHost);
+// Visit counter: needs a /api/seen serverless function this site doesn't have. Off = no failed requests.
+const SEEN_API = false;
 let seenAt = 0;
 function loadSeen() {
-  if (document.hidden || Date.now() - seenAt < 600e3) return;
+  if (!SEEN_API || document.hidden || Date.now() - seenAt < 600e3) return;
   seenAt = Date.now();
   load("/api/seen")
     .then((data) => bar.setSeen(data))
     .catch(() => {});
 }
 function markSeen() {
+  if (!SEEN_API) return;
   let timer = 0;
   const arm = () => {
     clearTimeout(timer);

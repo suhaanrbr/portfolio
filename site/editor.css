@@ -1792,13 +1792,9 @@ a.md-link:hover {
     display: none;
   }
 
+  /* On phones the eye has no free space: centred at the top it sat over the header text. */
   .eye-host {
-    position: fixed;
-    top: calc(3.5 * var(--cell-h) - var(--eye-hw) / 3.4);
-    right: 0;
-    left: 0;
-    width: var(--eye-hw);
-    margin: 0 auto;
+    display: none;
   }
 
   .wheel-hint {

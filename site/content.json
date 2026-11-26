@@ -1,6 +1,6 @@
 {
  "owner": "suhaanrbr",
- "fetchedAt": "2026-11-26T16:16:17.265Z",
+ "fetchedAt": "2026-11-26T16:19:33.297Z",
  "about": {
   "repo": "suhaanrbr",
   "lines": [
@@ -189,6 +189,77 @@
     "",
     "[Visit](https://humanora-beryl.vercel.app)",
     "[Source on GitHub](https://github.com/suhaanrbr/humanora)"
+   ]
+  },
+  {
+   "repo": "suwexa-gaming",
+   "url": "https://suwexa.vercel.app",
+   "description": "The website of my independent game studio, with a playable carrom table, a page for each game, news and the Carrom Crest trailer.",
+   "tag": "Studio website · Next.js",
+   "stars": null,
+   "language": "Next.js",
+   "pushed": null,
+   "forks": null,
+   "watchers": null,
+   "issues": null,
+   "license": null,
+   "created": null,
+   "branch": "main",
+   "commits": null,
+   "files": null,
+   "counts": {},
+   "github": "https://github.com/Suwexa-Gaming/website",
+   "stack": [
+    "Next.js",
+    "TypeScript",
+    "React",
+    "Tailwind CSS",
+    "WebGL"
+   ],
+   "images": [
+    {
+     "file": "shots/suwexa-home.webp",
+     "source": "shots/suwexa-home.webp",
+     "alt": "Suwexa Gaming screenshot 1",
+     "xray": false
+    },
+    {
+     "file": "shots/suwexa-playable-table.webp",
+     "source": "shots/suwexa-playable-table.webp",
+     "alt": "Suwexa Gaming screenshot 2",
+     "xray": false
+    },
+    {
+     "file": "shots/suwexa-carrom-crest.webp",
+     "source": "shots/suwexa-carrom-crest.webp",
+     "alt": "Suwexa Gaming screenshot 3",
+     "xray": false
+    }
+   ],
+   "lines": [
+    "# Suwexa Gaming",
+    "",
+    "\u0001IMG0\u0001",
+    "",
+    "### The website of my independent game studio, with a playable carrom table, a page for each game, news and the Carrom Crest trailer.",
+    "",
+    "The official site of Suwexa Gaming. The home page opens on key art rendered",
+    "from WebGL shader code, and a small carrom table lets visitors pull back the",
+    "striker and take a shot right in the browser. Each game gets its own page",
+    "and privacy policy, alongside news, studio and contact pages. Games and news",
+    "live in typed content files, so adding a game updates its page, the sitemap",
+    "and its search metadata together. Built with AI-assisted development (Claude",
+    "Code): I directed the design and the content, and I'm learning how the site",
+    "is put together.",
+    "",
+    "Built with Next.js · TypeScript · React · Tailwind CSS · WebGL",
+    "",
+    "\u0001IMG1\u0001",
+    "",
+    "\u0001IMG2\u0001",
+    "",
+    "[Visit](https://suwexa.vercel.app)",
+    "[Source on GitHub](https://github.com/Suwexa-Gaming/website)"
    ]
   }
  ],

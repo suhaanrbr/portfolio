@@ -127,6 +127,32 @@
           "url": "https://github.com/suhaanrbr/humanora"
         }
       ]
+    },
+    {
+      "name": "Suwexa Gaming",
+      "tag": "Studio website · Next.js",
+      "desc": "The website of my independent game studio, with a playable carrom table, a page for each game, news and the Carrom Crest trailer.",
+      "long": "The official site of Suwexa Gaming. The home page opens on key art rendered from WebGL shader code, and a small carrom table lets visitors pull back the striker and take a shot right in the browser. Each game gets its own page and privacy policy, alongside news, studio and contact pages. Games and news live in typed content files, so adding a game updates its page, the sitemap and its search metadata together. Built with AI-assisted development (Claude Code): I directed the design and the content, and I'm learning how the site is put together.",
+      "githubRepo": "Suwexa-Gaming/website",
+      "shots": [
+        "shots/suwexa-home.webp",
+        "shots/suwexa-playable-table.webp",
+        "shots/suwexa-carrom-crest.webp"
+      ],
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Tailwind CSS",
+        "WebGL"
+      ],
+      "url": "https://suwexa.vercel.app",
+      "links": [
+        {
+          "label": "Source on GitHub",
+          "url": "https://github.com/Suwexa-Gaming/website"
+        }
+      ]
     }
   ],
   "talks": [],

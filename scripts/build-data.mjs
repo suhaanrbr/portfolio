@@ -188,12 +188,13 @@ const projects = CONFIG.projects.map((p) => {
   if (p.more) MORE.push(id);
   const full = p.githubRepo || (p.url?.startsWith("https://github.com/") ? p.url.replace("https://github.com/", "").replace(/\/$/, "") : null);
   const facts = repoFacts(full);
-  const images = (p.shots || []).map((s, i) => ({
-    file: s.startsWith("shots/") ? s : `shots/${path.basename(s)}`,
-    source: s,
-    alt: `${p.name} screenshot ${i + 1}`,
-    xray: false,
-  }));
+  // A shot is an image path, or a film: { "video": "shots/x.mp4", "poster": "shots/x.webp", "duration": 61, "alt": "..." }.
+  const shotPath = (s) => (s.startsWith("shots/") ? s : `shots/${path.basename(s)}`);
+  const images = (p.shots || []).map((s, i) =>
+    typeof s === "string"
+      ? { file: shotPath(s), source: s, alt: `${p.name} screenshot ${i + 1}`, xray: false }
+      : { file: shotPath(s.poster), source: s.video, alt: s.alt || `${p.name} film`, xray: false, kind: "film", video: shotPath(s.video), duration: s.duration, ...(s.label ? { label: s.label } : {}) },
+  );
   const lines = [
     `# ${p.name}`,
     "",

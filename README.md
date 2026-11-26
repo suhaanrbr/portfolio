@@ -72,6 +72,7 @@ node scripts/build-data.mjs --fetch-github
 ## Adding Your Own Assets
 
 - **Project Screenshots**: Drop images into `site/shots/` and reference them as `"shots/my-app.png"` in `portfolio.config.json`.
+- **Project Videos**: Add a film slide with a play button by using an object instead of a path in `shots`: `{ "video": "shots/trailer.mp4", "poster": "shots/trailer.webp", "duration": 61, "label": "trailer" }` (`duration` is in seconds; keep videos small, e.g. 720p).
 - **Talk Photos**: Drop photos into `site/photos/<event>/` and reference them in `talks[].photos` in `portfolio.config.json`.
 - **Custom Logo**: Replace the SVG `<path>` in `favicon.svg`, `index.html`, `site/index.html`, and `MARK` in `site/wheel.js`.
 - **Optional Face Intro Layer**: See `scripts/build-face.py` if you want to add a green-screened portrait loop to the intro. Without `face.mp4` / `face.webm` / `face-track.json`, the intro skips the face layer automatically.

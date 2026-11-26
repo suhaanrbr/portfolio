@@ -1,6 +1,6 @@
 {
  "owner": "suhaanrbr",
- "fetchedAt": "2026-11-26T15:52:30.888Z",
+ "fetchedAt": "2026-11-26T15:58:57.828Z",
  "about": {
   "repo": "suhaanrbr",
   "lines": [
@@ -43,39 +43,49 @@
    ],
    "images": [
     {
+     "file": "shots/carrom-crest-trailer.webp",
+     "source": "shots/carrom-crest-trailer.mp4",
+     "alt": "Carrom Crest trailer",
+     "xray": false,
+     "kind": "film",
+     "video": "shots/carrom-crest-trailer.mp4",
+     "duration": 61,
+     "label": "trailer"
+    },
+    {
      "file": "shots/carrom-crest-cover.webp",
      "source": "shots/carrom-crest-cover.webp",
-     "alt": "Carrom Crest screenshot 1",
+     "alt": "Carrom Crest screenshot 2",
      "xray": false
     },
     {
      "file": "shots/carrom-crest-ablaze.webp",
      "source": "shots/carrom-crest-ablaze.webp",
-     "alt": "Carrom Crest screenshot 2",
+     "alt": "Carrom Crest screenshot 3",
      "xray": false
     },
     {
      "file": "shots/carrom-crest-final-table.webp",
      "source": "shots/carrom-crest-final-table.webp",
-     "alt": "Carrom Crest screenshot 3",
+     "alt": "Carrom Crest screenshot 4",
      "xray": false
     },
     {
      "file": "shots/carrom-crest-3d-table.webp",
      "source": "shots/carrom-crest-3d-table.webp",
-     "alt": "Carrom Crest screenshot 4",
+     "alt": "Carrom Crest screenshot 5",
      "xray": false
     },
     {
      "file": "shots/carrom-crest-strike.webp",
      "source": "shots/carrom-crest-strike.webp",
-     "alt": "Carrom Crest screenshot 5",
+     "alt": "Carrom Crest screenshot 6",
      "xray": false
     },
     {
      "file": "shots/carrom-crest-new-tables.webp",
      "source": "shots/carrom-crest-new-tables.webp",
-     "alt": "Carrom Crest screenshot 6",
+     "alt": "Carrom Crest screenshot 7",
      "xray": false
     }
    ],
@@ -107,6 +117,8 @@
     "\u0001IMG4\u0001",
     "",
     "\u0001IMG5\u0001",
+    "",
+    "\u0001IMG6\u0001",
     "",
     "[Visit](https://play.google.com/store/apps/details?id=dev.carromcrest.game)",
     "[Watch the trailer](https://www.youtube.com/watch?v=yyYMOQc8jOg)",

@@ -69,6 +69,13 @@
       "long": "Carrom Crest is a carrom board game for Android built in Godot 4. Coins slide, collide and rebound with custom physics rather than canned animations. A computer opponent plans real shots by simulating candidate strikes with the same physics and scoring them against the rules. Players can take on a World Tour story across 21 lands, solve challenges, or play friends in online rooms (a small Cloudflare relay joins phones by a 6-digit code) or over the same Wi-Fi with no internet. Built with AI-assisted development (Claude Code): I designed the game and directed the build, and I'm now learning the Godot code behind it.",
       "githubRepo": "",
       "shots": [
+        {
+          "video": "shots/carrom-crest-trailer.mp4",
+          "poster": "shots/carrom-crest-trailer.webp",
+          "duration": 61,
+          "label": "trailer",
+          "alt": "Carrom Crest trailer"
+        },
         "shots/carrom-crest-cover.webp",
         "shots/carrom-crest-ablaze.webp",
         "shots/carrom-crest-final-table.webp",

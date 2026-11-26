@@ -77,8 +77,8 @@ const chroma = (value) => Math.hypot(lab(value)[1], lab(value)[2]);
 const mix = (a, b, t) => `#${hex(a).map((v, n) => Math.round(v * (1 - t) + hex(b)[n] * t).toString(16).padStart(2, "0")).join("")}`;
 
 const DEFAULT_THEME = "blackmoney";
-const THEME_KEY = "portfolio.scheme";
-const WORM_KEY = "portfolio.worm";
+const THEME_KEY = "waqar.scheme";
+const WORM_KEY = "waqar.worm";
 let currentTheme = DEFAULT_THEME;
 let openEntry = null;
 let booted = false;
@@ -147,7 +147,7 @@ const entries = [
   { id: "about", label: "whoami", kind: "about", tile: "about" },
   ...projectEntries.filter((entry) => !entry.parent),
   { id: "work", label: "work/", kind: "work", tile: "work" },
-  { id: "talks", label: "talks/", kind: "talks", tile: "talks" },
+  ...((content.talks || []).length ? [{ id: "talks", label: "talks/", kind: "talks", tile: "talks" }] : []),
   ...(childrenOf("more").length ? [{ id: "more", label: "more/", kind: "more" }] : []),
   ...(stack ? [{ id: "stack", label: "stack/", kind: "stack", tile: "stack" }] : []),
   { id: "themes", label: "themes/", kind: "themes", tile: "themes" },
@@ -299,18 +299,20 @@ function room(used) {
 
 function projectSpec(project) {
   const { share, note } = starShare(project.stars || 0);
+  // Only show GitHub facts we actually have: projects without a public repo (or built without --fetch-github) have nulls.
+  const has = (value) => value !== null && value !== undefined;
   const out = [
     { segments: [[project.repo, "md-h md-h1"]] },
     ...(project.description ? [{ segments: [project.description], className: "t-dim" }] : []),
     { segments: [" "] },
-    fact("stars", project.stars, ["  ", ...gauge(share / 100, 17 + note.length), ...(note ? [[note, "t-dim"]] : [])]),
-    fact("forks", project.forks),
-    fact("watch", project.watchers),
-    fact("commits", project.commits),
+    ...(has(project.stars) ? [fact("stars", project.stars, ["  ", ...gauge(share / 100, 17 + note.length), ...(note ? [[note, "t-dim"]] : [])])] : []),
+    ...(has(project.forks) ? [fact("forks", project.forks)] : []),
+    ...(has(project.watchers) ? [fact("watch", project.watchers)] : []),
+    ...(has(project.commits) ? [fact("commits", project.commits)] : []),
     ...Object.entries(project.counts || {}).map(([name, value]) => fact(name, value)),
-    fact("files", project.files),
+    ...(has(project.files) ? [fact("files", project.files)] : []),
     { segments: [[pad("lang"), "t-key"], [project.language || "—", "md-code"], ...(project.license ? [["  " + project.license, "t-dim"]] : [])] },
-    { segments: [[pad("since"), "t-key"], project.created || "—", ["  pushed ", "t-dim"], project.pushed] },
+    ...(project.created || project.pushed ? [{ segments: [[pad("since"), "t-key"], project.created || "—", ["  pushed ", "t-dim"], project.pushed || "—"] }] : []),
   ];
   const url = project.url;
   return {
@@ -460,7 +462,7 @@ function workSpec() {
     cwd: "~/work",
     branch: null,
     blocks: [
-      { cmd: "fetch work/", out: [fact("entries", jobs.length), fact("programs", jobs.filter((item) => /summer of|google summer/i.test(item.title)).length)] },
+      { cmd: "fetch work/", out: [fact("entries", jobs.length), ...((n) => (n ? [fact("programs", n)] : []))(jobs.filter((item) => /summer of|google summer/i.test(item.title)).length)] },
       { cmd: "git log --format='%ad  %s' work/", out },
     ],
   };
@@ -548,11 +550,23 @@ function textOf(entry) {
 function barView(entry) {
   if (entry.kind === "project") {
     const p = entry.data;
+    // Without GitHub data (no public repo, or built offline) show what we do know instead of zeros.
+    if (p.stars == null) return [["SHOTS", String(p.images.length)], ["STACK", String(p.stack.length)], ...(p.language ? [["LANG", p.language.toUpperCase()]] : [])];
     return [["STARS", fmt(p.stars)], ["FORKS", fmt(p.forks ?? 0)], ["WATCH", fmt(p.watchers ?? 0)]];
   }
   if (entry.kind === "themes") return [["THEMES", String(themes.length)], ["BUILT-IN", String(themes.filter((theme) => theme.included).length)]];
-  if (entry.kind === "work") return [["ROLES", String((content.work || []).filter((item) => item.kind !== "talk").length)], ["SINCE", "2021"], ["NOW", "ALBY"]];
-  if (entry.kind === "talks") return [["TALKS", String((content.talks || []).length)], ["COUNTRIES", "4"], ["SINCE", "2022"]];
+  if (entry.kind === "work") {
+    const roles = (content.work || []).filter((item) => item.kind !== "talk");
+    const years = roles.flatMap((item) => (item.when || "").match(/\b(19|20)\d{2}\b/g) || []).map(Number);
+    const current = roles.find((item) => /present/i.test(item.when || ""));
+    return [["ROLES", String(roles.length)], ...(years.length ? [["SINCE", String(Math.min(...years))]] : []), ...(current ? [["NOW", current.org.toUpperCase()]] : [])];
+  }
+  if (entry.kind === "talks") {
+    const list = content.talks || [];
+    const years = list.flatMap((talk) => (talk.when || "").match(/\b(19|20)\d{2}\b/g) || []).map(Number);
+    const countries = new Set(list.map((talk) => (talk.place || "").split(", ").pop()).filter(Boolean));
+    return [["TALKS", String(list.length)], ["COUNTRIES", String(countries.size)], ...(years.length ? [["SINCE", String(Math.min(...years))]] : [])];
+  }
   if (entry.kind === "more") return [["PROJECTS", String(childrenOf("more").length)]];
   if (entry.kind === "stack") return [["LANGS", String(stack.languages.length)], ["TOOLS", String(stack.tools.length)], ["AI", String(stack.ai?.length ?? 0)]];
   return [["REPOS", fmt(snapshot.stars.repositoryCount)], ["STARS", fmt(snapshot.stars.total)], ["FOLLOWERS", fmt(snapshot.followers)]];

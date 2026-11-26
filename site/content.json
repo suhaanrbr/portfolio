@@ -1,29 +1,28 @@
 {
- "owner": "alexrivera",
- "fetchedAt": "2026-11-25T09:11:39.315Z",
+ "owner": "suhaanrbr",
+ "fetchedAt": "2026-11-26T15:26:16.858Z",
  "about": {
-  "repo": "alexrivera",
+  "repo": "suhaanrbr",
   "lines": [
-   "# Alex Rivera",
+   "# Waqar Younis",
    "",
-   "Systems and full-stack engineer building developer tools, distributed storage engines, and open-source software.",
+   "BCA student at Manipal University Jaipur, working toward a career as an AI/ML engineer. I design and ship games and AI-powered products, and I'm learning the engineering behind them as I go.",
    "",
-   "San Francisco · Open Source",
+   "Founder, Suwexa Gaming · Learning AI/ML",
    "",
-   "[GitHub](https://github.com/alexrivera)",
-   "[LinkedIn](https://www.linkedin.com/in/alexrivera)",
-   "[X / Twitter](https://x.com/alexrivera)",
-   "[Blog](https://alexrivera.dev/blog)"
+   "[GitHub](https://github.com/suhaanrbr)",
+   "[LinkedIn](https://www.linkedin.com/in/waqar-younis-3603772bb/)",
+   "[Suwexa Gaming](https://suwexa.vercel.app)"
   ]
  },
  "projects": [
   {
-   "repo": "pulsedb",
-   "url": "https://github.com/alexrivera/pulsedb",
-   "description": "An embedded time-series storage engine written in Rust with sub-millisecond range queries and vectorized compression.",
-   "tag": "Database · Rust",
+   "repo": "carrom-crest",
+   "url": "https://play.google.com/store/apps/details?id=dev.carromcrest.game",
+   "description": "Real carrom physics, a story across 21 lands, and rooms for you and friends. Published on Google Play by Suwexa Gaming.",
+   "tag": "Game · Godot · Android",
    "stars": null,
-   "language": "Rust",
+   "language": "Godot",
    "pushed": null,
    "forks": null,
    "watchers": null,
@@ -34,44 +33,85 @@
    "commits": null,
    "files": null,
    "counts": {},
-   "github": "https://github.com/alexrivera/pulsedb",
+   "github": null,
    "stack": [
-    "Rust",
-    "SQLite",
-    "WebAssembly",
-    "TypeScript"
+    "Godot",
+    "GDScript",
+    "Android",
+    "Cloudflare Workers",
+    "AdMob"
    ],
    "images": [
     {
-     "file": "shots/project-1.svg",
-     "source": "shots/project-1.svg",
-     "alt": "PulseDB screenshot 1",
+     "file": "shots/carrom-crest-cover.webp",
+     "source": "shots/carrom-crest-cover.webp",
+     "alt": "Carrom Crest screenshot 1",
+     "xray": false
+    },
+    {
+     "file": "shots/carrom-crest-aiming.webp",
+     "source": "shots/carrom-crest-aiming.webp",
+     "alt": "Carrom Crest screenshot 2",
+     "xray": false
+    },
+    {
+     "file": "shots/carrom-crest-menu.webp",
+     "source": "shots/carrom-crest-menu.webp",
+     "alt": "Carrom Crest screenshot 3",
+     "xray": false
+    },
+    {
+     "file": "shots/carrom-crest-doubles.webp",
+     "source": "shots/carrom-crest-doubles.webp",
+     "alt": "Carrom Crest screenshot 4",
+     "xray": false
+    },
+    {
+     "file": "shots/carrom-crest-challenges.webp",
+     "source": "shots/carrom-crest-challenges.webp",
+     "alt": "Carrom Crest screenshot 5",
      "xray": false
     }
    ],
    "lines": [
-    "# PulseDB",
+    "# Carrom Crest",
     "",
     "\u0001IMG0\u0001",
     "",
-    "### An embedded time-series storage engine written in Rust with sub-millisecond range queries and vectorized compression.",
+    "### Real carrom physics, a story across 21 lands, and rooms for you and friends. Published on Google Play by Suwexa Gaming.",
     "",
-    "PulseDB is a lightweight embedded time-series database designed for edge",
-    "telemetry and local developer metrics. It features gorilla-style delta",
-    "encoding, memory-mapped segment files, and a zero-allocation query iterator.",
+    "Carrom Crest is a carrom board game for Android built in Godot 4. Coins",
+    "slide, collide and rebound with custom physics rather than canned",
+    "animations. A computer opponent plans real shots by simulating candidate",
+    "strikes with the same physics and scoring them against the rules. Players",
+    "can take on a World Tour story across 21 lands, solve challenges, or play",
+    "friends in online rooms (a small Cloudflare relay joins phones by a 6-digit",
+    "code) or over the same Wi-Fi with no internet. Built with AI-assisted",
+    "development (Claude Code): I designed the game and directed the build, and",
+    "I'm now learning the Godot code behind it.",
     "",
-    "Built with Rust · SQLite · WebAssembly · TypeScript",
+    "Built with Godot · GDScript · Android · Cloudflare Workers · AdMob",
     "",
-    "[Visit](https://github.com/alexrivera/pulsedb)"
+    "\u0001IMG1\u0001",
+    "",
+    "\u0001IMG2\u0001",
+    "",
+    "\u0001IMG3\u0001",
+    "",
+    "\u0001IMG4\u0001",
+    "",
+    "[Visit](https://play.google.com/store/apps/details?id=dev.carromcrest.game)",
+    "[Watch the trailer](https://www.youtube.com/watch?v=yyYMOQc8jOg)",
+    "[Support page](https://suhaanrbr.github.io/)"
    ]
   },
   {
-   "repo": "termflow",
-   "url": "https://github.com/alexrivera/termflow",
-   "description": "A fast terminal multiplexer and task runner with live dependency graphs and structured log filtering.",
-   "tag": "CLI · Go",
+   "repo": "humanora",
+   "url": "https://humanora-beryl.vercel.app",
+   "description": "An AI writing and study workspace that edits AI-assisted drafts into natural prose while keeping every figure, date and quotation intact.",
+   "tag": "AI · Web app",
    "stars": null,
-   "language": "Go",
+   "language": "Next.js",
    "pushed": null,
    "forks": null,
    "watchers": null,
@@ -82,190 +122,53 @@
    "commits": null,
    "files": null,
    "counts": {},
-   "github": "https://github.com/alexrivera/termflow",
+   "github": "https://github.com/suhaanrbr/humanora",
    "stack": [
-    "Go",
-    "Terminal",
-    "Docker",
-    "Linux"
-   ],
-   "images": [
-    {
-     "file": "shots/project-2.svg",
-     "source": "shots/project-2.svg",
-     "alt": "TermFlow screenshot 1",
-     "xray": false
-    }
-   ],
-   "lines": [
-    "# TermFlow",
-    "",
-    "\u0001IMG0\u0001",
-    "",
-    "### A fast terminal multiplexer and task runner with live dependency graphs and structured log filtering.",
-    "",
-    "TermFlow orchestrates local microservices and build pipelines from a single",
-    "declarative manifest. It streams colorized output, detects port conflicts",
-    "automatically, and exports execution timelines.",
-    "",
-    "Built with Go · Terminal · Docker · Linux",
-    "",
-    "[Visit](https://github.com/alexrivera/termflow)"
-   ]
-  },
-  {
-   "repo": "tracekit",
-   "url": "https://github.com/alexrivera/tracekit",
-   "description": "Zero-overhead OpenTelemetry trace viewer that runs entirely in the browser from JSONL trace dumps.",
-   "tag": "Observability · TypeScript",
-   "stars": null,
-   "language": "TypeScript",
-   "pushed": null,
-   "forks": null,
-   "watchers": null,
-   "issues": null,
-   "license": null,
-   "created": null,
-   "branch": "main",
-   "commits": null,
-   "files": null,
-   "counts": {},
-   "github": "https://github.com/alexrivera/tracekit",
-   "stack": [
+    "Next.js",
     "TypeScript",
     "React",
-    "Canvas",
-    "OpenTelemetry"
-   ],
-   "images": [],
-   "lines": [
-    "# TraceKit",
-    "",
-    "",
-    "### Zero-overhead OpenTelemetry trace viewer that runs entirely in the browser from JSONL trace dumps.",
-    "",
-    "TraceKit lets engineers inspect distributed traces locally without spinning",
-    "up heavy observability backends. Drop a trace file into the browser and",
-    "inspect flamegraphs, critical paths, and span attributes.",
-    "",
-    "Built with TypeScript · React · Canvas · OpenTelemetry",
-    "",
-    "[Visit](https://github.com/alexrivera/tracekit)"
-   ]
-  },
-  {
-   "repo": "schemasync",
-   "url": "https://github.com/alexrivera/schemasync",
-   "description": "Automated database migration validator that catches breaking schema changes and missing indexes in CI.",
-   "tag": "Tooling · Python",
-   "stars": null,
-   "language": "Python",
-   "pushed": null,
-   "forks": null,
-   "watchers": null,
-   "issues": null,
-   "license": null,
-   "created": null,
-   "branch": "main",
-   "commits": null,
-   "files": null,
-   "counts": {},
-   "github": "https://github.com/alexrivera/schemasync",
-   "stack": [
-    "Python",
+    "Tailwind CSS",
     "PostgreSQL",
-    "GitHub Actions"
+    "Google Gemini"
    ],
-   "images": [],
-   "lines": [
-    "# SchemaSync",
-    "",
-    "",
-    "### Automated database migration validator that catches breaking schema changes and missing indexes in CI.",
-    "",
-    "SchemaSync parses SQL and ORM migrations in pull requests, simulates lock",
-    "contention against production table statistics, and posts actionable safety",
-    "reports.",
-    "",
-    "Built with Python · PostgreSQL · GitHub Actions",
-    "",
-    "[Visit](https://github.com/alexrivera/schemasync)"
-   ]
-  },
-  {
-   "repo": "minikv",
-   "url": "https://github.com/alexrivera/minikv",
-   "description": "A minimal Raft-backed key-value store built to explore consensus algorithms and deterministic simulation testing.",
-   "tag": "Storage · C",
-   "stars": null,
-   "language": "C",
-   "pushed": null,
-   "forks": null,
-   "watchers": null,
-   "issues": null,
-   "license": null,
-   "created": null,
-   "branch": "main",
-   "commits": null,
-   "files": null,
-   "counts": {},
-   "github": "https://github.com/alexrivera/minikv",
-   "stack": [
-    "C",
-    "Networking",
-    "Raft"
+   "images": [
+    {
+     "file": "shots/humanora-landing.webp",
+     "source": "shots/humanora-landing.webp",
+     "alt": "Humanora screenshot 1",
+     "xray": false
+    },
+    {
+     "file": "shots/humanora-tools.webp",
+     "source": "shots/humanora-tools.webp",
+     "alt": "Humanora screenshot 2",
+     "xray": false
+    }
    ],
-   "images": [],
    "lines": [
-    "# MiniKV",
+    "# Humanora",
     "",
+    "\u0001IMG0\u0001",
     "",
-    "### A minimal Raft-backed key-value store built to explore consensus algorithms and deterministic simulation testing.",
+    "### An AI writing and study workspace that edits AI-assisted drafts into natural prose while keeping every figure, date and quotation intact.",
     "",
-    "MiniKV implements leader election, log replication, and snapshot compaction",
-    "in under 2,000 lines of C with a deterministic network simulator.",
+    "Humanora rewrites AI-assisted drafts using Google Gemini, then runs a",
+    "meaning check to confirm that the facts, figures and citations survived the",
+    "rewrite. Model output is validated before it is used. Around it sits a",
+    "toolkit: grammar checker, paraphraser, summarizer, quiz generator, fact",
+    "checker, an AI-detector check, readability scoring, a citation generator,",
+    "and My Voice, which turns a writer's own samples into a compact style",
+    "profile that steers each rewrite. It has accounts, a PostgreSQL database and",
+    "usage-based plans. Built with AI-assisted development (Claude Code): I",
+    "defined the product and directed the build, and I'm learning how each part",
+    "works.",
     "",
-    "Built with C · Networking · Raft",
+    "Built with Next.js · TypeScript · React · Tailwind CSS · PostgreSQL · Google Gemini",
     "",
-    "[Visit](https://github.com/alexrivera/minikv)"
-   ]
-  },
-  {
-   "repo": "dotfiles",
-   "url": "https://github.com/alexrivera/dotfiles",
-   "description": "Modular Neovim, Fish shell, and tmux configuration tuned for fast keyboard-driven development.",
-   "tag": "Config · Neovim",
-   "stars": null,
-   "language": "Lua",
-   "pushed": null,
-   "forks": null,
-   "watchers": null,
-   "issues": null,
-   "license": null,
-   "created": null,
-   "branch": "main",
-   "commits": null,
-   "files": null,
-   "counts": {},
-   "github": "https://github.com/alexrivera/dotfiles",
-   "stack": [
-    "Lua",
-    "Neovim",
-    "Shell"
-   ],
-   "images": [],
-   "lines": [
-    "# Dotfiles",
+    "\u0001IMG1\u0001",
     "",
-    "",
-    "### Modular Neovim, Fish shell, and tmux configuration tuned for fast keyboard-driven development.",
-    "",
-    "Cross-platform terminal environment with custom Lua plugins, minimal LSP",
-    "setup, and synchronized color palettes.",
-    "",
-    "Built with Lua · Neovim · Shell",
-    "",
-    "[Visit](https://github.com/alexrivera/dotfiles)"
+    "[Visit](https://humanora-beryl.vercel.app)",
+    "[Source on GitHub](https://github.com/suhaanrbr/humanora)"
    ]
   }
  ],
@@ -604,83 +507,53 @@
  },
  "work": [
   {
-   "when": "06/2024 – present",
-   "title": "Senior Systems Engineer",
-   "org": "CloudScale",
-   "where": "San Francisco · Hybrid",
-   "desc": "Leading the distributed query execution engine and low-latency telemetry pipeline in Rust and Go.",
-   "url": "https://example.com/cloudscale"
+   "when": "Now · 3rd semester",
+   "title": "BCA student",
+   "org": "Manipal University Jaipur",
+   "where": "Online",
+   "desc": "Bachelor of Computer Applications, with a personal focus on AI and machine learning."
   },
   {
-   "when": "03/2022 – 05/2024",
-   "title": "Software Engineer",
-   "org": "DevFlow",
-   "where": "Remote",
-   "desc": "Built CLI developer tooling, local sandbox runtimes, and real-time build log streaming for 50k+ engineers.",
-   "url": "https://example.com/devflow"
+   "when": "2026 – present",
+   "title": "Founder",
+   "org": "Suwexa Gaming",
+   "where": "Independent game studio",
+   "desc": "Independent game studio. Designed and published Carrom Crest, a physics-driven carrom game for Android, on Google Play.",
+   "url": "https://suwexa.vercel.app"
   },
   {
-   "when": "01/2021 – present",
-   "title": "Core Maintainer",
-   "org": "OpenTrace",
-   "where": "Open source",
-   "desc": "Maintaining open-source distributed tracing SDKs and terminal visualization tools.",
-   "url": "https://github.com/alexrivera"
+   "when": "07/2024 – 09/2025",
+   "title": "Customer Experience Agent II",
+   "org": "Alorica",
+   "where": "Bangalore · Client: Amazon",
+   "desc": "Resolved retail order, delivery and account issues for Amazon customers in North America, handling 50+ calls per shift."
   },
   {
-   "when": "05/2020 – 08/2020",
-   "title": "Open Source Fellow",
-   "org": "SystemsLab",
-   "where": "Remote",
-   "desc": "Implemented zero-copy serialization primitives and benchmarked memory-mapped storage formats."
+   "when": "2021 – 2022",
+   "title": "Technical Support Advisor",
+   "org": "[24]7.ai",
+   "where": "Client: Optus Australia",
+   "desc": "Troubleshot SIM and NBN internet service issues for Optus customers and handled premium handset sales."
   }
  ],
- "talks": [
-  {
-   "name": "Systems Conf",
-   "place": "San Francisco, USA",
-   "when": "Oct 2025",
-   "lat": 37.77,
-   "lon": -122.41,
-   "desc": "Building deterministic simulation harnesses for storage engines — catching race conditions before production.",
-   "url": "https://example.com/talk-1",
-   "photos": []
-  },
-  {
-   "name": "Open Source Summit",
-   "place": "London, UK",
-   "when": "May 2024",
-   "lat": 51.51,
-   "lon": -0.13,
-   "desc": "Designing zero-dependency developer tools that run fast on every platform.",
-   "url": "https://example.com/talk-2",
-   "photos": []
-  }
- ],
+ "talks": [],
  "links": [
   {
    "label": "Email",
-   "url": "mailto:hello@alexrivera.dev"
+   "url": "mailto:waqaryounisc1@gmail.com"
   },
   {
    "label": "GitHub",
-   "url": "https://github.com/alexrivera"
+   "url": "https://github.com/suhaanrbr"
   },
   {
    "label": "LinkedIn",
-   "url": "https://www.linkedin.com/in/alexrivera"
+   "url": "https://www.linkedin.com/in/waqar-younis-3603772bb/"
   },
   {
-   "label": "X / Twitter",
-   "url": "https://x.com/alexrivera"
-  },
-  {
-   "label": "Blog",
-   "url": "https://alexrivera.dev/blog"
+   "label": "Suwexa Gaming",
+   "url": "https://suwexa.vercel.app"
   }
  ],
- "more": [
-  "minikv",
-  "dotfiles"
- ]
+ "more": []
 }

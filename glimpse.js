@@ -18,8 +18,8 @@ const VANISH = [8, 28];
 const EDIT_ALPHA = 0.95;
 const MESSAGE_ALPHA = 0.97;
 const MESSAGES = [
-  ["i build", "the things", "i want to use."],
-  ["and make them", "feel like somewhere", "i want to be."],
+  ["and right now", "i'm teaching myself", "how machines learn."], // typed by the message act, after the work act
+  ["i build", "games and", "AI products."], // typed right after the portrait
 ];
 const MSG_MX = 6;
 const MSG_MY = 6;
@@ -36,11 +36,11 @@ const NOTE_TEXT = "// learning AI/ML · building games and AI tools.";
 const touchMode = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 // Bump when face.webm / face.mp4 / face-track.json / wall.json change. These files are fetched by script, and browsers can keep old copies of
 // script-initiated fetches even through a hard refresh; a new ?v= makes the old cache entries unreachable.
-const ASSET_V = "20261123-orig-face";
+const ASSET_V = "20261127-waqar-face";
 // Optional features that need files this site doesn't have. Off = no requests, so no 404s in the console.
-// FACE_LAYER: the green-screened portrait loop (face.webm / face.mp4 / face-track.json, see scripts/build-face.py).
+// FACE_LAYER: the portrait loop drawn as code (face.webm / face.mp4 / face-track.json, see scripts/build-face.py).
 // SEEN_API: a visit counter that POSTs to /api/seen (needs a serverless function).
-const FACE_LAYER = false;
+const FACE_LAYER = true;
 const SEEN_API = false;
 const FACE_FONT_PX = 5.5;
 const EM_TOP = 1025 / 1300;
@@ -1602,7 +1602,8 @@ async function runCycle() {
   }
   const token = ++director.token;
   const alive = () => token === director.token && !leaving;
-  const ok = (await workAct(alive)) && (await sayAct(alive)) && (await faceAct(alive));
+  // The portrait comes first so visitors see it within seconds; the work and message acts follow.
+  const ok = (await faceAct(alive)) && (await workAct(alive)) && (await sayAct(alive));
   if (alive()) scheduleCycle(ok ? between(...CYCLE.pause) : CYCLE.retry);
 }
 
@@ -1629,10 +1630,10 @@ async function sayAct(alive) {
 }
 
 async function faceAct(alive) {
+  if (!face) await until(() => face, alive, 5000); // first act now: give the face video a moment to arrive
   if (!face) return true;
   director.hush = true;
   if (tile && !tile.leaving) close(performance.now());
-  await sleep(between(...CYCLE.gap));
   const token = ghost.token;
   if (alive()) {
     await ghostUndo(token);
@@ -1712,9 +1713,36 @@ function showMachine(job) {
   blockFrame = requestAnimationFrame(blockStep);
 }
 
+// The portrait is the intro's focal point: centre it in the code wall, as large as the code band above the
+// keyboard allows (up to 36 rows, ~470px). Small screens fall back to the random placement below.
+const FACE_ROWS = [20, 36];
+const FACE_ASPECT = 430 / 588;
+function centreFace(layout) {
+  const [b0, b1] = wall.band;
+  const bottom = Math.min(b1, (keyboard?.fits ? keyboard.topRow : wall.rows) - 2);
+  const mx = Math.min(MSG_MX, Math.floor((wall.span[1] - wall.span[0] - 4 - layout.width) / 2));
+  if (mx < 2) return null;
+  for (let rows = Math.min(FACE_ROWS[1], bottom - b0 - 2); rows >= FACE_ROWS[0]; rows -= 2) {
+    const faceCols = Math.ceil((rows * CELL_H * FACE_ASPECT) / CELL_W) + 8;
+    const cols = Math.max(layout.width + 2 * mx, faceCols);
+    const col = Math.round((wall.span[0] + wall.span[1] - cols) / 2);
+    const row = Math.round((b0 + bottom - rows) / 2);
+    if (col < wall.span[0] + 2 || col + cols > wall.span[1] - 2 || row < 2 || row + rows > wall.rows - 2) continue;
+    const x = cellX(col);
+    const w = cellX(col + cols) - x;
+    const y = row * CELL_H;
+    const h = rows * CELL_H;
+    if (wall.blocked.some((z) => x + w > z.x0 - 16 && x < z.x1 + 16 && y + h > z.y0 - 16 && y < z.y1 + 16)) continue;
+    return { col, row, cols, rows, x, y, w, h, distance: Infinity, seed: row + Math.floor(rows / 2), mx };
+  }
+  return null;
+}
+
 function planFace() {
   if (!face || !wall || leaving || tile || block || document.hidden) return null;
   const layout = layoutMessage(MESSAGES[1]);
+  const centred = centreFace(layout);
+  if (centred) return centred;
   for (let my = clamp(Math.floor((wall.band[1] - wall.band[0] - 6) / 2), 4, MSG_MY_FACE); my >= 4; my--) {
     const at = chooseBlock(layout, my);
     if (at) return at;

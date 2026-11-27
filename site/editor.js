@@ -344,6 +344,8 @@ function aboutSpec() {
         from: snapshot.contributions.from,
         to: snapshot.contributions.to,
         owner: about.name,
+        initials: (content.about.lines.find((line) => line.startsWith("# ")) || "")
+          .slice(2).split(/\s+/).filter(Boolean).map((word) => word[0].toUpperCase()).join("").slice(0, 3),
         family: false,
       }),
     blocks: [

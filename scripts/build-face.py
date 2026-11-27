@@ -99,9 +99,9 @@ H, W = frames[0].shape
 corners = cv2.goodFeaturesToTrack(frames[0], maxCorners=a.points, qualityLevel=0.005, minDistance=max(8, W // 22), blockSize=7)
 if corners is None: sys.exit("no trackable corners: is the face visible/lit? try a different --start or --crop")
 pts = corners.reshape(-1, 2).astype(np.float32)
-rng = np.random.default_rng(1)
 while len(pts) < a.points:                      # keep the JSON shape the page expects (34 slots)
-    pts = np.vstack([pts, pts[len(pts) % len(pts)] + rng.normal(0, 6, 2).astype(np.float32)])
+    k = len(pts)  # deterministic offsets (no numpy.random: some Windows setups block its DLL)
+    pts = np.vstack([pts, pts[k % k] + np.array([6 * np.cos(k * 2.4), 6 * np.sin(k * 2.4)], np.float32)])
 alive = np.ones(len(pts), bool)
 lk = dict(winSize=(21, 21), maxLevel=3, criteria=(cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 30, 0.01))
 
